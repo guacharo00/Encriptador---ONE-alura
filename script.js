@@ -1,4 +1,6 @@
 const btnEncriptar = document.querySelector(".btn-encript");
+const btnDesencriptar = document.querySelector(".btn-decript");
+const btnCopiar = document.querySelector(".btn_copy");
 const textEncriptar = document.querySelector(".normal_text");
 const textResult = document.querySelector(".encripted_text");
 
@@ -10,33 +12,82 @@ const reglas = {
   u: "ufat",
 };
 
+const pattern = "[a-zA,Z0-9]";
+
 // Funcion de encriptaciones
-const encriptarTexto = function (texto) {
+const encriptarTexto = function (texto, btnType) {
+  textResult.value = validator(texto, btnType);
+  textEncriptar.value = "";
+};
+
+// Funcion desencriptar
+const desencriptarTexto = function (texto) {
   // Validande el texto
-  if (typeof texto === "string") {
-    if (texto.length) {
-      // Reemplazando caracteres
-      const newStr = texto
-        .replace(/\e/g, `${reglas.e}`)
-        .replace(/\i/g, `${reglas.i}`)
-        .replace(/\a/g, `${reglas.a}`)
-        .replace(/\o/g, `${reglas.o}`)
-        .replace(/\u/g, `${reglas.u}`);
-      textResult.value = newStr;
-      textEncriptar.value = "";
-    } else {
-      throw Error("El texto debe tener almenos un caracter");
-    }
+  textResult.value = validator(texto);
+  textEncriptar.value = "";
+};
+
+// Funcion de validacion
+const validator = (texto, btnType) => {
+  if (typeof texto === "string" && texto.match(pattern) && texto.length) {
+    const newText = enDecript(texto, btnType);
+    return newText;
   } else {
     throw Error("El argumento debe ser una cadena de caracteres");
   }
 };
 
-// agregar funcion al boton
-btnEncriptar.addEventListener("click", (e) => {
-  const texto = textEncriptar.value;
+// Logica para encriptar desencriptar.
+const enDecript = function (texto, btnType) {
+  let newStr = "";
+  if (btnType === "Encriptar") {
+    newStr = texto
+      .replace(/\e/g, `${reglas.e}`)
+      .replace(/\i/g, `${reglas.i}`)
+      .replace(/\a/g, `${reglas.a}`)
+      .replace(/\o/g, `${reglas.o}`)
+      .replace(/\u/g, `${reglas.u}`);
+    return newStr;
+  } else {
+    newStr = texto
+      .replace(/\enter/g, `e`)
+      .replace(/\imes/g, `i`)
+      .replace(/\ai/g, `a`)
+      .replace(/\ober/g, `o`)
+      .replace(/\ufat/g, `u`);
+    return newStr;
+  }
+};
 
-  encriptarTexto(texto);
+// Funcion de copiado
+const copiar = function (content) {
+  if (content.value.length) {
+    content.select();
+    document.execCommand("copy");
+    content.value = "";
+  } else {
+    throw Error("No hay texto seleccionado");
+  }
+};
+
+// agregar funcion al boton encriptar
+btnEncriptar.addEventListener("click", (e) => {
+  const btnType = e.target.innerHTML;
+
+  const texto = textEncriptar.value;
+  encriptarTexto(texto, btnType);
+});
+
+// agregar funcion al boton desencriptar
+btnDesencriptar.addEventListener("click", (e) => {
+  const texto = textEncriptar.value;
+  desencriptarTexto(texto);
+});
+
+// agregar funcion al boton copiar
+btnCopiar.addEventListener("click", (e) => {
+  // const texto = textResult.value;
+  copiar(textResult);
 });
 
 // Fecha en footer

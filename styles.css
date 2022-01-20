@@ -142,6 +142,8 @@ body {
 
 .btn:hover {
   background-color: #f2f2f2;
+  color: var(--clr-primary-dark);
+  border-color: var(--clr-primary-dark);
 }
 
 .btn:first-child {
