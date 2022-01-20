@@ -35,11 +35,11 @@ body {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  margin: 0 auto;
 }
 
 .container {
   max-width: 144rem;
+  margin: 0 auto;
   min-height: 100vh;
   padding: 3rem 4rem;
 }
@@ -190,10 +190,11 @@ textarea::-webkit-scrollbar {
 
 /* Footer */
 footer {
-  margin-top: 6rem;
+  margin-top: 15%;
   text-align: center;
   display: flex;
   justify-content: center;
+  align-items: flex-end;
 }
 
 footer .footer_text {
