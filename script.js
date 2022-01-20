@@ -75,13 +75,13 @@ btnEncriptar.addEventListener("click", (e) => {
   const btnType = e.target.innerHTML;
 
   const texto = textEncriptar.value;
-  encriptarTexto(texto, btnType);
+  encriptarTexto(texto.toLowerCase(), btnType);
 });
 
 // agregar funcion al boton desencriptar
 btnDesencriptar.addEventListener("click", (e) => {
   const texto = textEncriptar.value;
-  desencriptarTexto(texto);
+  desencriptarTexto(texto.toLowerCase());
 });
 
 // agregar funcion al boton copiar
